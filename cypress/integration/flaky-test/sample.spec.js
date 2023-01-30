@@ -2,7 +2,8 @@ describe('Flaky tests bad practice', () => {
   beforeEach(() => {
     cy.intercept(
       'GET',
-      '**/search**'
+      '**/search**',
+      { fixture: 'stories' }
     ).as('getStories')
 
     cy.visit('https://wlsf82-hacker-stories.web.app')
@@ -16,7 +17,7 @@ describe('Flaky tests bad practice', () => {
       Cypress._.times(6, () => {
         cy.search(faker.random.word())
       })
-      
+
       cy.wait('@getStories')
 
       cy.get('.last-searches button')
